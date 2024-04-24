@@ -14,7 +14,7 @@
         <v-range-slider
           v-model="price"
           strict
-          max="100000"
+          max="2000"
           hide-details
         />
       </v-col>
@@ -44,15 +44,20 @@
         :key="item.id"
         v-for="item in list"
         cols="12"
-        sm="3"
+        sm="4"
+        lg="3"
       >
         <product-item :item="item"/>
       </v-col>
     </v-row>
-    <v-pagination
-      v-model="page"
-      :length="pages"
-    />
+    <v-row>
+      <v-col>
+        <v-pagination
+          v-model="page"
+          :length="pages"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -67,7 +72,7 @@ export default {
       todos: [],
       search: '',
       page: 1,
-      price: [0, 100000]
+      price: [0, 2000]
     }
   },
   async fetch() {
