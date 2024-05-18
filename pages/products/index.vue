@@ -1,13 +1,28 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12">
+      <v-col cols="12" sm="6">
         <v-text-field
           v-model="search"
           solo
+          color="accent"
           clearable
           placeholder="Введите название товара"
-          label="Поис по товарама"
+          label="Поиск по названию"
+          hide-details
+        />
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-autocomplete
+          v-model="selectedBrands"
+          :items="brandsDictionary"
+          clearable
+          color="accent"
+          item-color='accent'
+          solo
+          multiple
+          label="Фильтр по брендам"
+          hide-details
         />
       </v-col>
       <v-col cols="12" sm="8" class="d-flex align-center">
@@ -16,6 +31,8 @@
           strict
           max="2000"
           hide-details
+          color="accent"
+          track-color="tertiary"
         />
       </v-col>
       <v-col cols="6" sm="2">
@@ -25,7 +42,9 @@
           outlined
           placeholder="Введите мин. цену"
           label="Мин. цена"
+          color="accent"
           hide-details
+          dense
         />
       </v-col>
       <v-col  cols="6" sm="2">
@@ -36,6 +55,8 @@
           placeholder="Введите макс. цену"
           label="Макс. цена"
           hide-details
+          color="accent"
+          dense
         />
       </v-col>
     </v-row>
@@ -55,6 +76,7 @@
         <v-pagination
           v-model="page"
           :length="pages"
+          color="accent"
         />
       </v-col>
     </v-row>
@@ -69,27 +91,32 @@ export default {
   components: {ProductItem},
   data() {
     return {
-      todos: [],
+      products: [],
       search: '',
       page: 1,
-      price: [0, 2000]
+      price: [0, 2000],
+      selectedBrands: []
     }
   },
   async fetch() {
-    const { data } = await this.$axios.get('https://dummyjson.com/products')
-    this.todos = data.products
+    const { data } = await this.$api.products.list('https://dummyjson.com/products')
+    this.products = data.products
   },
   computed: {
     pages() {
-      return Math.ceil(this.todosList.length / PAGE_SIZE)
+      return Math.ceil(this.productsList.length / PAGE_SIZE)
     },
     list() {
-      return this.todosList.slice((this.page - 1) * PAGE_SIZE, this.page * PAGE_SIZE)
+      return this.productsList.slice((this.page - 1) * PAGE_SIZE, this.page * PAGE_SIZE)
     },
-    todosList() {
-      return this.todos
+    productsList() {
+      return this.products
         .filter((it) => !this.search?.length ? true : it.title.toLowerCase().includes(this.search.toLowerCase()))
         .filter((it) => this.price[0] <= it.price && it.price <= this.price[1])
+        .filter(it => this.selectedBrands.length === 0 ? true : this.selectedBrands.includes(it.brand))
+    },
+    brandsDictionary() {
+      return this.products.map(it => it.brand)
     }
   }
 }

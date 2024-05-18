@@ -5,8 +5,8 @@
 
 <script>
 export default {
-  async fetch() {
-    await this.$router.redirect('/products')
+  fetch() {
+    this.$router.push('/products')
   }
 }
 </script>

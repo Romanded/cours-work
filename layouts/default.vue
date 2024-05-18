@@ -14,6 +14,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+a {
+  text-decoration: none;
+  color: var(--v-secondary-base) !important;
 
+  &:hover {
+    color: var(--v-accent-base) !important;
+  }
+}
 </style>

@@ -15,7 +15,7 @@
               <v-btn small class="mr-4" @click="count -= 1">
                 <v-icon>mdi-minus</v-icon>
               </v-btn>
-                {{ count }}
+                {{ product.count }}
               <v-btn small class="ml-4" @click="count += 1">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>

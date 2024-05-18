@@ -2,7 +2,7 @@
   <v-skeleton-loader v-if="$fetchState.pending"></v-skeleton-loader>
   <v-container v-else>
     <v-row>
-      <v-col cols="8">
+      <v-col order="2" order-sm="1" cols="12" sm="8">
         <cart-item
           v-for="product in products"
           :product="product"
@@ -10,7 +10,7 @@
           @remove="removeItem"
         />
       </v-col>
-      <v-col cols="4">
+      <v-col order="1" order-sm="2" sm="4" cols="12">
         <order-details/>
       </v-col>
     </v-row>
@@ -25,8 +25,8 @@ export default {
     }
   },
   async fetch() {
-    const { data } = await this.$axios.get('https://dummyjson.com/products')
-    this.products = data.products
+    const { data } = await this.$api.cart.list()
+    this.products = data
   },
   methods: {
     removeItem(id) {

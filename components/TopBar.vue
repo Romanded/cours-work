@@ -1,11 +1,11 @@
 <template>
   <v-card>
     <v-app-bar>
-      <template>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      </template>
-
-      <v-toolbar-title ><nuxt-link to="/products">Магазин</nuxt-link></v-toolbar-title>
+      <v-toolbar-title >
+        <nuxt-link class="secondary--text" to="/products">
+          Магазин
+        </nuxt-link>
+      </v-toolbar-title>
 
       <v-toolbar-items class="d-flex align-center mr-0 ml-auto">
         <div>
