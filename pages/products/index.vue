@@ -99,7 +99,7 @@ export default {
     }
   },
   async fetch() {
-    const { data } = await this.$api.products.list('https://dummyjson.com/products')
+    const { data } = await this.$api.products.list()
     this.products = data.products
   },
   computed: {
